@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->unique();
-            $table->string('slug');
+            $table->string('client_name');
+            $table->string('client_name_slug');
+            $table->string('client_designation');
+            $table->longText('client_message');
+            $table->string('client_image')->nullable()->default('default-client.jpg');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('testimonials');
     }
 };

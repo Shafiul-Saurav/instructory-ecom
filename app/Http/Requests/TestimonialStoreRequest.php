@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryUpdateRequest extends FormRequest
+class TestimonialStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,11 @@ class CategoryUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_title' => 'required|string|max:255'
+            'client_name' => 'required|string|max:255',
+            'client_designation' => 'required|string|max:255',
+            'client_message' => 'required|string',
+            'client_image' => 'nullable|image',
+            // 'client_image' => 'required|mimes:png,jpg,jpeg|max:512'
         ];
     }
 }

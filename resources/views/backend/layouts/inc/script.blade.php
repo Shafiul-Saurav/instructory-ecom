@@ -14,3 +14,10 @@
 <script src="{{ asset('assets/backend') }}/js/base/init.js"></script>
 <!-- Template Base Scripts End -->
 
+<!-- Toastr -->
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+{!! Toastr::message() !!}
+<!-- Page Spacific Scripts Start -->
+@stack('admin_script')
+<!-- Page Spacific Scripts End -->
+

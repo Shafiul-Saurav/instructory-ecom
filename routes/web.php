@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Backend\AdminDashboardController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\TestimonialController;
+use App\Http\Controllers\Backend\TestimonialTrashController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('backend.pages.dashboard');
-});
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -24,11 +25,21 @@ Route::get('/', function () {
     return view('frontend.pages.home');
 });
 
+Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
+
+// Category Controller
 Route::resource('category', CategoryController::class);
 
+// Testimonial Controller
+Route::get('testimonial/trash', [TestimonialTrashController::class, 'trash'])->name('testimonial.trash');
+Route::get('testimonial/{slug}restore', [TestimonialTrashController::class, 'restore'])->name('testimonial.restore');
+Route::get('testimonial/{slug}forcedelete', [TestimonialTrashController::class, 'forceDelete'])->name('testimonial.forcedelete');
+Route::resource('testimonial', TestimonialController::class);
 
 
 
-Auth::routes();
+
+
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
