@@ -5,7 +5,7 @@ Category Edit
 @endsection
 
 @push('admin_style')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css">
 @endpush
 
 <style>
@@ -27,13 +27,24 @@ Category Edit
         </div>
         <div class="col-12 mt-4">
             <div class="card p-4">
-                <form action="{{ route('category.update', $category->slug) }}" method="post">
+                <form action="{{ route('category.update', $category->slug) }}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="PUT">
                     <div class="form-group">
                         <label for="category_title" class="form-label">Category title</label>
                         <input type="text" name="category_title" class="form-control" placeholder="Enter Category Title" value="{{ $category->title }}">
                         @error('category_title')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="category_image" class="form-label">Category title</label>
+                        <input type="file" name="category_image" class="form-control dropify @error('category_image')
+                            is-invalid
+                        @enderror" data-default-file="{{ asset('uploads/categories') }}/{{ $category->category_image }}">
+                        @error('category_image')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -59,3 +70,10 @@ Category Edit
         </div>
     </div>
 @endsection
+
+@push('admin_script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+<script>
+    $('.dropify').dropify();
+</script>
+@endpush

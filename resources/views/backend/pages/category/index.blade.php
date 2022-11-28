@@ -18,7 +18,11 @@ Category Index
     <div class="row">
         <h1>{{ __('Category List Table') }}</h1>
         <div class="col-12">
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-between">
+                <a href="{{ route('category.trash') }}" class="btn btn-info">
+                    <i class="fas fa-trash-restore"></i>
+                    Restore
+                </a>
                 <a href="{{ route('category.create') }}" class="btn btn-primary">
                     <i class="fa-solid fa-circle-plus"></i>
                     Add New Category
@@ -32,8 +36,10 @@ Category Index
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Last Modified</th>
+                            <th scope="col">Category Image</th>
                             <th scope="col">Category Name</th>
                             <th scope="col">Category Slug</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Options</th>
 
                         </tr>
@@ -43,8 +49,19 @@ Category Index
                             <tr>
                                 <th scope="row">{{ $categories->firstItem()+$loop->index }}</th>
                                 <td>{{ $category->updated_at->format('d M Y') }}</td>
+                                <td class="text-center">
+                                    <img src="{{ asset('uploads/categories') }}/{{ $category->category_image }}"
+                                    class="img-fluid rounded-circle" alt="" style="width:60px; height:60px;">
+                                </td>
                                 <td>{{ $category->title }}</td>
                                 <td>{{ $category->slug }}</td>
+                                <td>
+                                    @if ($category->is_active == 1)
+                                        <span class="badge bg-success">Active</span>
+                                    @else
+                                        <span class="badge bg-warning">Inactive</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

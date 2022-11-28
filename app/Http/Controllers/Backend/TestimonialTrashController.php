@@ -17,22 +17,24 @@ class TestimonialTrashController extends Controller
         return view('backend.pages.testimonial.trash', compact('testimonials'));
     }
 
-    public function restore($slug)
+    public function restore($client_name_slug)
     {
-        // dd($slug);
-        Testimonial::onlyTrashed()->where('client_name_slug', $slug)->restore();
+        // dd($client_name_slug);
+        Testimonial::onlyTrashed()->where('client_name_slug', $client_name_slug)->restore();
         Toastr::success('Category Restored Successfully!');
         return redirect()->route('testimonial.index');
     }
 
-    public function forceDelete($slug)
+    public function forceDelete($client_name_slug)
     {
-        // dd($slug);
-        $testimonial = Testimonial::onlyTrashed()->where('client_name_slug', $slug)->forceDelete();
-        if($testimonial->client_image){
+        // dd($client_name_slug);
+        $testimonial = Testimonial::onlyTrashed()->where('client_name_slug', $client_name_slug)->first();
+        if($testimonial->client_image != 'default-client.jpg'){
             $photo_location = 'uploads/testimonials/'.$testimonial->client_image;
             unlink($photo_location);
         }
+        $testimonial->forceDelete();
+
         Toastr::success('Category Deleted Permanently!');
         return redirect()->route('testimonial.index');
     }

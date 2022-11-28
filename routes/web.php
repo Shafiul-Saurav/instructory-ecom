@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Backend\AdminDashboardController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CategoryTrashController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\TestimonialTrashController;
+use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,19 +23,29 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', function () {
-    return view('frontend.pages.home');
+// Route::get('/', function () {
+//     return view('frontend.pages.home');
+// });
+
+Route::prefix('')->group(function() {
+    Route::get('/', [HomeController::class, 'home'])->name('home');
 });
 
 Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
 
 // Category Controller
+Route::get('category/trash', [CategoryTrashController::class, 'trash'])->name('category.trash');
+Route::get('category/{slug}/trash', [CategoryTrashController::class, 'restore'])->name('category.restore');
+Route::delete('category/{slug}/forcedelete', [CategoryTrashController::class, 'forceDelete'])->name('category.forcedelete');
 Route::resource('category', CategoryController::class);
 
 // Testimonial Controller
-Route::get('testimonial/trash', [TestimonialTrashController::class, 'trash'])->name('testimonial.trash');
-Route::get('testimonial/{slug}restore', [TestimonialTrashController::class, 'restore'])->name('testimonial.restore');
-Route::get('testimonial/{slug}forcedelete', [TestimonialTrashController::class, 'forceDelete'])->name('testimonial.forcedelete');
+Route::get('testimonial/trash', [TestimonialTrashController::class, 'trash'])
+->name('testimonial.trash');
+Route::get('testimonial/{client_name_slug}/restore', [TestimonialTrashController::class, 'restore'])
+->name('testimonial.restore');
+Route::delete('testimonial/{client_name_slug}/forcedelete', [TestimonialTrashController::class, 'forceDelete'])
+->name('testimonial.forcedelete');
 Route::resource('testimonial', TestimonialController::class);
 
 

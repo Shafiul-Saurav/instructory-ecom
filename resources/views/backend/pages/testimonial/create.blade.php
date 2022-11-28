@@ -63,7 +63,7 @@ Testimonial Create
                         <label for="client_image" class="form-label">Client Image <span class="text-primary">Must not be greater than 512 kb</span></label>
                         <input type="file" name="client_image" class="form-control dropify @error('client_image')
                             is-invalid
-                        @enderror" required="required">
+                        @enderror">
                         @error('client_image')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-Testimonial Index
+Category Trash
 @endsection
 
 @push('admin_style')
@@ -16,16 +16,12 @@ Testimonial Index
 
 @section('admin_content')
     <div class="row">
-        <h1>{{ __('Testimonial List Table') }}</h1>
+        <h1>{{ __('Category List Table') }}</h1>
         <div class="col-12">
-            <div class="d-flex justify-content-between">
-                <a href="{{ route('testimonial.trash') }}" class="btn btn-info">
-                    <i class="fas fa-trash-restore"></i>
-                    Restore
-                </a>
-                <a href="{{ route('testimonial.create') }}" class="btn btn-primary">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    Add New Testimonial
+            <div class="d-flex">
+                <a href="{{ route('category.index') }}" class="btn btn-primary">
+                    <i class="fa-solid fa-backward"></i>
+                    Back to Categories
                 </a>
             </div>
         </div>
@@ -36,36 +32,36 @@ Testimonial Index
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Last Modified</th>
-                            <th scope="col">Client Image</th>
-                            <th scope="col">Client Name</th>
-                            <th scope="col">Client Designation</th>
+                            <th scope="col">Category Image</th>
+                            <th scope="col">Category Name</th>
+                            <th scope="col">Category Slug</th>
                             <th scope="col">Options</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($testimonials as $testimonial)
+                        @foreach ($categories as $category)
                             <tr>
-                                <th scope="row">{{ $testimonials->firstItem()+$loop->index }}</th>
-                                <td>{{ $testimonial->updated_at->format('d M Y') }}</td>
+                                <th scope="row">{{ $categories->firstItem()+$loop->index }}</th>
+                                <td>{{ $category->updated_at->format('d M Y') }}</td>
                                 <td class="text-center">
-                                    <img src="{{ asset('uploads/testimonials') }}/{{ $testimonial->client_image }}" alt=""
-                                    class="rounded-circle" style="width: 60px; height: 60px;">
+                                    <img src="{{ asset('uploads/categories') }}/{{ $category->category_image }}"
+                                    class="img-fluid rounded-circle" alt="" style="width:60px; height:60px;">
                                 </td>
-                                <td>{{ $testimonial->client_name }}</td>
-                                <td>{{ $testimonial->client_designation }}</td>
+                                <td>{{ $category->title }}</td>
+                                <td>{{ $category->slug }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                             Setting
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="{{ route('testimonial.edit', $testimonial->client_name_slug) }}"><i class="fa-regular fa-pen-to-square"></i> Edit</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('category.restore', ['slug' => $category->slug]) }}"><i class="fas fa-trash-restore"></i> Restore</a></li>
                                             <li>
-                                                <form action="{{ route('testimonial.destroy', $testimonial->client_name_slug) }}" method="post">
+                                                <form action="{{ route('category.forcedelete', ['slug' => $category->slug]) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="dropdown-item show_confirm"><i class="fa-solid fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="dropdown-item show_confirm"><i class="fa-solid fa-trash"></i> Force Delete</button>
                                                 </form>
                                             </li>
                                         </ul>

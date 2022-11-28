@@ -5,7 +5,7 @@ Category Create
 @endsection
 
 @push('admin_style')
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css">
 @endpush
 
 @section('admin_content')
@@ -21,7 +21,7 @@ Category Create
         </div>
         <div class="col-12 mt-4">
             <div class="card p-4">
-                <form action="{{ route('category.store') }}" method="post">
+                <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label for="category_title" class="form-label">Category title</label>
@@ -30,6 +30,18 @@ Category Create
                         @enderror" placeholder="Enter Category Title"
                         value="{{ old('category_title') }}">
                         @error('category_title')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="category_image" class="form-label">Category Image</label>
+                        <input type="file" name="category_image" class="form-control dropify @error('category_image')
+                            is-invalid
+                        @enderror" placeholder="Enter Category Title"
+                        value="{{ old('category_image') }}">
+                        @error('category_image')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -52,3 +64,10 @@ Category Create
         </div>
     </div>
 @endsection
+
+@push('admin_script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+<script>
+    $('.dropify').dropify();
+</script>
+@endpush

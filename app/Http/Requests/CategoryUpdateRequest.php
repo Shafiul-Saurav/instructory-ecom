@@ -24,7 +24,9 @@ class CategoryUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_title' => 'required|string|max:255'
+            'category_title' => 'required|string|max:255',
+            'category_image' => 'nullable|image',
+            // 'category_image' => 'required|mimes:png,jpg,jpeg|max:512',
         ];
     }
 }

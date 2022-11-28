@@ -122,9 +122,9 @@ class TestimonialController extends Controller
         return redirect()->route('testimonial.index');
     }
 
-    public function image_upload($request, $item_id)
+    public function image_upload($request, $client_id)
     {
-        $testimonial = Testimonial::findOrFail($item_id);
+        $testimonial = Testimonial::findOrFail($client_id);
         // dd($request->all(), $testimonial, $request->hasFile('client_image'));
         if ($request->hasFile('client_image')) {
             if ($testimonial->client_image != 'default-client.jpg') {

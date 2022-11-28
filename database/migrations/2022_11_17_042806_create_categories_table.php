@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->string('slug');
+            $table->string('category_image')->nullable()->default('category-default.png');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();

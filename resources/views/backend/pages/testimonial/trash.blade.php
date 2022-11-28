@@ -56,9 +56,9 @@ Testimonial Trash
                                             Setting
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="{{ route('testimonial.restore', ['slug' => $testimonial->client_name_slug]) }}"><i class="fa-regular fa-pen-to-square"></i> Restore</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('testimonial.restore', ['client_name_slug' => $testimonial->client_name_slug]) }}"><i class="fa-regular fa-pen-to-square"></i> Restore</a></li>
                                             <li>
-                                                <form action="{{ route('testimonial.forcedelete', ['slug' => $testimonial->client_name_slug]) }}" method="post">
+                                                <form action="{{ route('testimonial.forcedelete', ['client_name_slug' => $testimonial->client_name_slug]) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item show_confirm"><i class="fa-solid fa-trash"></i>Force Delete</button>
