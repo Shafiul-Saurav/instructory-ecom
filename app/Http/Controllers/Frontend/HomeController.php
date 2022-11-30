@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -16,9 +17,14 @@ class HomeController extends Controller
 
         $categories = Category::where('is_active', 1)->latest('id')->limit(6)->select(['id',
         'title', 'category_image'])->get();
-        // return $categories;
 
-        return view('frontend.pages.home', compact('testimonials', 'categories'));
+        $products = Product::where('is_active', 1)->latest('id')->limit(8)
+        ->select(['id', 'category_id', 'name', 'slug', 'product_price', 'product_stock',
+        'product_image', 'product_rating', ])->paginate(10);
+
+        // return $products;
+
+        return view('frontend.pages.home', compact('testimonials', 'categories', 'products'));
     }
 
 }
