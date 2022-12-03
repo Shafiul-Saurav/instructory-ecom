@@ -31,6 +31,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('')->group(function() {
     Route::get('/', [HomeController::class, 'home'])->name('home');
+    Route::get('/shop', [HomeController::class, 'shopPage'])->name('shop.page');
+    Route::get('single_product/{slug}', [HomeController::class, 'productDetails'])->name('single.product');
 });
 
 Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])

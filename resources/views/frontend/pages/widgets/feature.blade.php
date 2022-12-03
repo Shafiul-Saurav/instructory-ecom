@@ -9,7 +9,7 @@
                         <div class="featured-img">
                             <img src="{{ asset('uploads/categories') }}/{{ $categorie->category_image }}" alt="">
                             <div class="featured-content">
-                                <a href="shop.html">{{ $categorie->title }}</a>
+                                <a href="{{ route('shop.page') }}">{{ $categorie->title }}</a>
                             </div>
                         </div>
                     </div>

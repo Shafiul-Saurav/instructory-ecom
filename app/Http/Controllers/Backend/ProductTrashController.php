@@ -41,6 +41,6 @@ class ProductTrashController extends Controller
         $product->forceDelete();
 
         Toastr::success('Product Has Been Deleted Permanently!');
-        return redirect()->route('product.index');
+        return redirect()->back();
     }
 }

@@ -9,7 +9,7 @@
       </li>
       <li>
         <a href="#categories" data-href="">
-          <i data-cs-icon="cupcake" class="icon" data-cs-size="18"></i>
+            <i class="fas fa-vector-square"></i>
           <span class="label">Categories</span>
         </a>
         <ul id="categories">
@@ -26,19 +26,37 @@
         </ul>
       </li>
       <li>
-        <a href="#products" data-href="Products.html">
-          <i data-cs-icon="cupcake" class="icon" data-cs-size="18"></i>
+        <a href="#testimonial" data-href="">
+            <i class="fas fa-comments"></i>
+          <span class="label">Testimonials</span>
+        </a>
+        <ul id="testimonial">
+          <li>
+            <a href="{{ route('testimonial.index') }}">
+              <span class="label">Testimonial List</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('testimonial.create') }}">
+              <span class="label">Create New Testimonial</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#products" data-href="">
+            <i class="fab fa-product-hunt"></i>
           <span class="label">Products</span>
         </a>
         <ul id="products">
           <li>
-            <a href="Products.List.html">
-              <span class="label">List</span>
+            <a href="{{ route('product.index') }}">
+              <span class="label">Product List</span>
             </a>
           </li>
           <li>
-            <a href="Products.Detail.html">
-              <span class="label">Detail</span>
+            <a href="{{ route('product.create') }}">
+              <span class="label">Create New Product</span>
             </a>
           </li>
         </ul>
