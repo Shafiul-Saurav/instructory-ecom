@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductTrashController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\TestimonialTrashController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,8 @@ Route::prefix('')->group(function() {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('/shop', [HomeController::class, 'shopPage'])->name('shop.page');
     Route::get('single_product/{slug}', [HomeController::class, 'productDetails'])->name('single.product');
+    Route::get('shopping_card', [CartController::class, 'shoppingCard'])->name('shopping.card');
+    Route::post('add_to_cart', [CartController::class, 'addToCard'])->name('add_to.cart');
 });
 
 Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
@@ -41,7 +44,7 @@ Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
 // Category Controller
 Route::get('category/trash', [CategoryTrashController::class, 'trash'])
 ->name('category.trash');
-Route::get('category/{slug}/trash', [CategoryTrashController::class, 'restore'])
+Route::get('category/{slug}/restore', [CategoryTrashController::class, 'restore'])
 ->name('category.restore');
 Route::delete('category/{slug}/forcedelete', [CategoryTrashController::class, 'forceDelete'])
 ->name('category.forcedelete');
