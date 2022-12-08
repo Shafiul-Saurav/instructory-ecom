@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Backend\AdminDashboardController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CategoryTrashController;
+use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\CouponTrashcontroller;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductTrashController;
 use App\Http\Controllers\Backend\TestimonialController;
@@ -36,6 +39,7 @@ Route::prefix('')->group(function() {
     Route::get('single_product/{slug}', [HomeController::class, 'productDetails'])->name('single.product');
     Route::get('shopping_card', [CartController::class, 'shoppingCard'])->name('shopping.card');
     Route::post('add_to_cart', [CartController::class, 'addToCard'])->name('add_to.cart');
+    Route::get('remove_from_cart/{cart_id}', [CartController::class, 'removeFromCart'])->name('remove_from.cart');
 });
 
 Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
@@ -68,9 +72,25 @@ Route::delete('product/{slug}/forcedelete', [ProductTrashController::class, 'for
 ->name('product.forcedelete');
 Route::resource('product', ProductController::class);
 
+// Coupon Controller
+Route::get('coupon/trash', [CouponTrashcontroller::class, 'trash'])
+->name('coupon.trash');
+Route::get('coupon/restore/{id}', [CouponTrashcontroller::class, 'restore'])
+->name('coupon.restore');
+Route::delete('coupon/forcedelete/{id}', [CouponTrashcontroller::class, 'forceDelete'])
+->name('coupon.forcedelete');
+Route::resource('coupon', CouponController::class);
 
 
+/*Admin Auth routes */
+Route::prefix('admin/')->group(function(){
+    Route::get('login', [LoginController::class, 'loginPage'])->name('admin.loginpage');
+    Route::post('login', [LoginController::class, 'login'])->name('admin.login');
+    Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
 
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::middleware(['auth'])->group(function(){
+        Route::get('dashboard', function () {
+            return view('backend.pages.Dashboard');
+        })->name('admin.dashboard');
+    });
+});

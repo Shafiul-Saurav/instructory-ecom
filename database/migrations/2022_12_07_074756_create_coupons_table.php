@@ -15,7 +15,13 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
+            $table->string('coupon_name')->unique();
+            $table->unsignedSmallInteger('discount_amount')->default(0);
+            $table->unsignedInteger('minimum_purchase_amount')->default(0);
+            $table->date('validity_till');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

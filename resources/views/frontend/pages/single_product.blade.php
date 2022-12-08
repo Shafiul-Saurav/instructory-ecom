@@ -288,7 +288,7 @@
                             </div>
                             <div class="col-5 text-right">
                                 <ul>
-                                    <li><a href="cart.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="{{ route('single.product', ['slug' => $rproduct->slug]) }}"><i class="fa fa-shopping-cart"></i></a></li>
                                     <li><a href="cart.html"><i class="fa fa-heart"></i></a></li>
                                 </ul>
                             </div>
