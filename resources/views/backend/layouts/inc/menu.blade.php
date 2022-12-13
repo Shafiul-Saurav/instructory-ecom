@@ -62,6 +62,24 @@
         </ul>
       </li>
       <li>
+        <a href="#cupons" data-href="">
+          <i class="fas fa-percentage"></i>
+          <span class="label">Coupons</span>
+        </a>
+        <ul id="cupons">
+          <li>
+            <a href="{{ route('coupon.index') }}">
+              <span class="label">Product List</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('coupon.create') }}">
+              <span class="label">Create New Product</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
         <a href="#orders" data-href="Orders.html">
           <i data-cs-icon="cart" class="icon" data-cs-size="18"></i>
           <span class="label">Orders</span>

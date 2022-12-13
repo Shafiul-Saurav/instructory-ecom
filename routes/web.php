@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Frontend\Auth\RegisterController;
 use App\Http\Controllers\Backend\AdminDashboardController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CategoryTrashController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Backend\ProductTrashController;
 use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\TestimonialTrashController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CustomerController;
 use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +35,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('frontend.pages.home');
 // });
 
+
+/*
+|--------------------------------------------------------------------------
+| Frontend Routes
+|--------------------------------------------------------------------------
+*/
+
 Route::prefix('')->group(function() {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('/shop', [HomeController::class, 'shopPage'])->name('shop.page');
@@ -40,57 +49,75 @@ Route::prefix('')->group(function() {
     Route::get('shopping_card', [CartController::class, 'shoppingCard'])->name('shopping.card');
     Route::post('add_to_cart', [CartController::class, 'addToCard'])->name('add_to.cart');
     Route::get('remove_from_cart/{cart_id}', [CartController::class, 'removeFromCart'])->name('remove_from.cart');
+
+    //Customer Auth Routes
+    Route::get('/register', [RegisterController::class, 'registerPage'])->name('register.page');
+    Route::post('/register', [RegisterController::class, 'registerStore'])->name('register.store');
+    Route::get('/login', [RegisterController::class, 'loginPage'])->name('login.page');
+    Route::post('/login', [RegisterController::class, 'loginStore'])->name('login.store');
+
+    Route::prefix('customer/')->middleware('auth', 'is_customer')->group(function(){
+        Route::get('dashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
+        Route::get('logout', [RegisterController::class, 'logout'])->name('customer.logout');
+
+        //Coupon Apply & Remove
+        Route::post('cart/apply-coupon', [CartController::class, 'couponApply'])->name('customer.couponapply');
+        Route::get('cart/remove-coupon/{coupon_name}', [CartController::class, 'removeCoupon'])->name('customer.couponremove');
+    });
 });
 
-Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
-->name('admin.dashboard');
-
-// Category Controller
-Route::get('category/trash', [CategoryTrashController::class, 'trash'])
-->name('category.trash');
-Route::get('category/{slug}/restore', [CategoryTrashController::class, 'restore'])
-->name('category.restore');
-Route::delete('category/{slug}/forcedelete', [CategoryTrashController::class, 'forceDelete'])
-->name('category.forcedelete');
-Route::resource('category', CategoryController::class);
-
-// Testimonial Controller
-Route::get('testimonial/trash', [TestimonialTrashController::class, 'trash'])
-->name('testimonial.trash');
-Route::get('testimonial/{client_name_slug}/restore', [TestimonialTrashController::class, 'restore'])
-->name('testimonial.restore');
-Route::delete('testimonial/{client_name_slug}/forcedelete', [TestimonialTrashController::class, 'forceDelete'])
-->name('testimonial.forcedelete');
-Route::resource('testimonial', TestimonialController::class);
-
-// Product Controller
-Route::get('product/trash', [ProductTrashController::class, 'trash'])
-->name('product.trash');
-Route::get('product/{slug}/restore', [ProductTrashController::class, 'restore'])
-->name('product.restore');
-Route::delete('product/{slug}/forcedelete', [ProductTrashController::class, 'forceDelete'])
-->name('product.forcedelete');
-Route::resource('product', ProductController::class);
-
-// Coupon Controller
-Route::get('coupon/trash', [CouponTrashcontroller::class, 'trash'])
-->name('coupon.trash');
-Route::get('coupon/restore/{id}', [CouponTrashcontroller::class, 'restore'])
-->name('coupon.restore');
-Route::delete('coupon/forcedelete/{id}', [CouponTrashcontroller::class, 'forceDelete'])
-->name('coupon.forcedelete');
-Route::resource('coupon', CouponController::class);
 
 
-/*Admin Auth routes */
+/*
+|--------------------------------------------------------------------------
+| Backend Routes
+|--------------------------------------------------------------------------
+*/
+
+//Admin Auth Routes
 Route::prefix('admin/')->group(function(){
     Route::get('login', [LoginController::class, 'loginPage'])->name('admin.loginpage');
     Route::post('login', [LoginController::class, 'login'])->name('admin.login');
-    Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
 
-    Route::middleware(['auth'])->group(function(){
-        Route::get('dashboard', function () {
-            return view('backend.pages.Dashboard');
-        })->name('admin.dashboard');
+    Route::middleware(['auth', 'is_admin'])->group(function(){
+        Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
+        ->name('admin.dashboard');
+        Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
+
+        // Category Controller
+        Route::get('category/trash', [CategoryTrashController::class, 'trash'])
+        ->name('category.trash');
+        Route::get('category/{slug}/restore', [CategoryTrashController::class, 'restore'])
+        ->name('category.restore');
+        Route::delete('category/{slug}/forcedelete', [CategoryTrashController::class, 'forceDelete'])
+        ->name('category.forcedelete');
+        Route::resource('category', CategoryController::class);
+
+        // Testimonial Controller
+        Route::get('testimonial/trash', [TestimonialTrashController::class, 'trash'])
+        ->name('testimonial.trash');
+        Route::get('testimonial/{client_name_slug}/restore', [TestimonialTrashController::class, 'restore'])
+        ->name('testimonial.restore');
+        Route::delete('testimonial/{client_name_slug}/forcedelete', [TestimonialTrashController::class, 'forceDelete'])
+        ->name('testimonial.forcedelete');
+        Route::resource('testimonial', TestimonialController::class);
+
+        // Product Controller
+        Route::get('product/trash', [ProductTrashController::class, 'trash'])
+        ->name('product.trash');
+        Route::get('product/{slug}/restore', [ProductTrashController::class, 'restore'])
+        ->name('product.restore');
+        Route::delete('product/{slug}/forcedelete', [ProductTrashController::class, 'forceDelete'])
+        ->name('product.forcedelete');
+        Route::resource('product', ProductController::class);
+
+        // Coupon Controller
+        Route::get('coupon/trash', [CouponTrashcontroller::class, 'trash'])
+        ->name('coupon.trash');
+        Route::get('coupon/restore/{id}', [CouponTrashcontroller::class, 'restore'])
+        ->name('coupon.restore');
+        Route::delete('coupon/forcedelete/{id}', [CouponTrashcontroller::class, 'forceDelete'])
+        ->name('coupon.forcedelete');
+        Route::resource('coupon', CouponController::class);
     });
 });
