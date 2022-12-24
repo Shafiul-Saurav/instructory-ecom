@@ -1,21 +1,22 @@
 <?php
 
+use App\Models\Order;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Frontend\Auth\RegisterController;
-use App\Http\Controllers\Backend\AdminDashboardController;
-use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\CategoryTrashController;
-use App\Http\Controllers\Backend\CouponController;
-use App\Http\Controllers\Backend\CouponTrashcontroller;
-use App\Http\Controllers\Backend\ProductController;
-use App\Http\Controllers\Backend\ProductTrashController;
-use App\Http\Controllers\Backend\TestimonialController;
-use App\Http\Controllers\Backend\TestimonialTrashController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CustomerController;
-use App\Http\Controllers\Frontend\HomeController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\CouponTrashcontroller;
+use App\Http\Controllers\Backend\TestimonialController;
+use App\Http\Controllers\Backend\ProductTrashController;
+use App\Http\Controllers\Backend\CategoryTrashController;
+use App\Http\Controllers\Backend\AdminDashboardController;
+use App\Http\Controllers\Frontend\Auth\RegisterController;
+use App\Http\Controllers\Backend\TestimonialTrashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,14 @@ Route::prefix('')->group(function() {
         //Checkout Page
         Route::get('checkout_page', [CheckoutController::class, 'checkOut'])->name('checkout.page');
         Route::post('placeorder', [CheckoutController::class, 'placeOrder'])->name('customer.placeorder');
+
+        //Customer mail
+        Route::get('email', function(){
+            $order = Order::whereId(5)->with(['billing', 'orderdetails'])->get();
+            return view('frontend.mail.purchaseconfirm', [
+                'order_details' => $order
+            ]);
+        });
 
     });
 });

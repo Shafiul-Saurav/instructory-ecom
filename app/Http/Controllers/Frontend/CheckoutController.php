@@ -4,16 +4,18 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\Order;
 use App\Models\Billing;
+use App\Models\Product;
 use App\Models\Upazila;
 use App\Models\District;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
+use App\Mail\PurchaseConfirm;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\OrderStoreRequest;
-use App\Models\OrderDetail;
-use App\Models\Product;
-use Brian2694\Toastr\Facades\Toastr;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CheckoutController extends Controller
@@ -72,6 +74,12 @@ class CheckoutController extends Controller
         Product::findOrFail($cart_item->id)->decrement('product_stock', $cart_item->qty);
         Cart::destroy();
         Session::forget('coupon');
+
+        // Now get order with details information to send mail
+        $order = Order::whereId($order->id)->with(['billing', 'orderdetails'])->get();
+
+        // Now Send Mail
+        Mail::to($request->email)->send(new PurchaseConfirm($order));
 
         Toastr::success('Your Order Placed Successfully!!!', 'Success');
         return redirect()->route('shopping.card');
