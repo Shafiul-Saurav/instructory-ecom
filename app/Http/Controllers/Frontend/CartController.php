@@ -104,4 +104,13 @@ class CartController extends Controller
         Toastr::success('Coupon Removed', 'Successfully!!');
         return redirect()->back();
     }
+
+    public function wishList()
+    {
+        $carts = Cart::content();
+        $total_price = Cart::subtotal();
+
+        // return $carts;
+        return view('frontend.pages.wishlist', compact('carts', 'total_price'));
+    }
 }

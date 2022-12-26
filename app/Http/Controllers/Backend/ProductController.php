@@ -157,7 +157,7 @@ class ProductController extends Controller
             $uploaded_photo = $request->file('product_image');
             $new_photo_name = $product->id . '.' . $uploaded_photo->getClientOriginalExtension();
             $new_photo_location = $photo_location . $new_photo_name;
-            Image::make($uploaded_photo)->resize(600,600)->save(base_path($new_photo_location), 40);
+            Image::make($uploaded_photo)->resize(600,500)->save(base_path($new_photo_location), 40);
             //$user = User::find($product->id);
             $check = $product->update([
                 'product_image' => $new_photo_name,
@@ -188,7 +188,7 @@ class ProductController extends Controller
                 $photo_location = 'public/uploads/products/';
                 $new_photo_name = $product_id.'-'.$flag.'.'. $single_photo->getClientOriginalExtension();
                 $new_photo_location = $photo_location . $new_photo_name;
-                Image::make($single_photo)->resize(600, 600)->save(base_path($new_photo_location), 40);
+                Image::make($single_photo)->resize(600, 500)->save(base_path($new_photo_location), 40);
                 ProductImage::create([
                     'product_id' => $product_id,
                     'product_multiple_image' => $new_photo_name,

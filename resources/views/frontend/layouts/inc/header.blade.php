@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-7 col-sm-6 col-6">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="{{ route('home') }}">
                     <img src="{{ asset('assets/frontend') }}/images/logo.png" alt="">
                     </a>
                     </div>
@@ -52,20 +52,18 @@
                                 <a href="javascript:void(0);">Shop <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown_style">
                                     <li><a href="{{ route('shop.page') }}">Shop Page</a></li>
-                                    <li><a href="single-product.html">Product Details</a></li>
                                     <li><a href="{{ route('shopping.card') }}">Shopping cart</a></li>
                                     <li><a href="{{ route('checkout.page') }}">Checkout</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                    <li><a href="{{ route('wish.list') }}">Wishlist</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="javascript:void(0);">Pages <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown_style">
                                     <li><a href="about.html">About Page</a></li>
-                                    <li><a href="single-product.html">Product Details</a></li>
                                     <li><a href="{{ route('shopping.card') }}">Shopping cart</a></li>
                                     <li><a href="{{ route('checkout.page') }}">Checkout</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                    <li><a href="{{ route('wish.list') }}">Wishlist</a></li>
                                     <li><a href="faq.html">FAQ</a></li>
                                 </ul>
                             </li>
@@ -84,38 +82,19 @@
                     <ul class="search-cart-wrapper d-flex">
                         <li class="search-tigger"><a href="javascript:void(0);"><i class="flaticon-search"></i></a></li>
                         <li>
-                            <a href="javascript:void(0);"><i class="flaticon-like"></i> <span>2</span></a>
-                            <ul class="cart-wrap dropdown_style">
-                                <li class="cart-items">
-                                    <div class="cart-img">
-                                        <img src="{{ asset('assets/frontend') }}/images/cart/1.jpg" alt="">
-                                    </div>
-                                    <div class="cart-content">
-                                        <a href="{{ route('shopping.card') }}">Pure Nature Product</a>
-                                        <span>QTY : 1</span>
-                                        <p>$35.00</p>
-                                        <i class="fa fa-times"></i>
-                                    </div>
-                                </li>
-                                <li class="cart-items">
-                                    <div class="cart-img">
-                                        <img src="{{ asset('assets/frontend') }}/images/cart/3.jpg" alt="">
-                                    </div>
-                                    <div class="cart-content">
-                                        <a href="{{ route('shopping.card') }}">Pure Nature Product</a>
-                                        <span>QTY : 1</span>
-                                        <p>$35.00</p>
-                                        <i class="fa fa-times"></i>
-                                    </div>
-                                </li>
-                                <li>Subtotol: <span class="pull-right">$70.00</span></li>
-                                <li>
-                                    <button>Check Out</button>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>3</span></a>
+                            @php
+                                $numberOfCartProduct = \Gloudemans\Shoppingcart\Facades\Cart::count();
+                            @endphp
+                            @if ($numberOfCartProduct >= 1)
+                            <a href="javascript:void(0);"><i class="flaticon-like"></i>
+                                <span>{{ $numberOfCartProduct }}</span>
+                            </a>
+                            @else
+                            <a href="javascript:void(0);"><i class="flaticon-like"></i>
+
+                            </a>
+                            @endif
+
                             <ul class="cart-wrap dropdown_style">
                                 @php
                                     $carts = \Gloudemans\Shoppingcart\Facades\Cart::content();
@@ -139,9 +118,47 @@
                                 @endforeach
 
                                 <li>Subtotal: <span class="pull-right">${{ $total_price }}</span></li>
-                                <li>
-                                    <button>Check Out</button>
+                                <a class="btn btn-danger w-100 mt-4" href="{{ route('checkout.page') }}">Checkout</a>
+                            </ul>
+                        </li>
+                        <li>
+                            @php
+                                $numberOfCartProduct = \Gloudemans\Shoppingcart\Facades\Cart::count();
+                            @endphp
+                            @if ($numberOfCartProduct >= 1)
+                            <a href="javascript:void(0);"><i class="flaticon-shop"></i>
+                                <span>{{ $numberOfCartProduct }}</span>
+                            </a>
+                            @else
+                            <a href="javascript:void(0);"><i class="flaticon-shop"></i>
+
+                            </a>
+                            @endif
+
+                            <ul class="cart-wrap dropdown_style">
+                                @php
+                                    $carts = \Gloudemans\Shoppingcart\Facades\Cart::content();
+                                    $total_price = \Gloudemans\Shoppingcart\Facades\Cart::subtotal();
+                                @endphp
+                                @foreach ($carts as $cart)
+                                <li class="cart-items">
+                                    <div class="cart-img">
+                                        <img src="{{ asset('uploads/products') }}/{{ $cart->options->product_image }}" alt=""
+                                        style="width: 60px; height: 60px;">
+                                    </div>
+                                    <div class="cart-content">
+                                        <a href="{{ route('shopping.card') }}">{{ $cart->name }}</a>
+                                        <span>QTY : {{ $cart->qty }}</span>
+                                        <p>${{  $cart->price }}</p>
+                                        <td class="remove">
+                                            <a href="{{ route('remove_from.cart', ['cart_id' => $cart->rowId]) }}"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </div>
                                 </li>
+                                @endforeach
+
+                                <li>Subtotal: <span class="pull-right">${{ $total_price }}</span></li>
+                                <a class="btn btn-danger w-100 mt-4" href="{{ route('checkout.page') }}">Checkout</a>
                             </ul>
                         </li>
                     </ul>
@@ -169,20 +186,18 @@
                                 <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Shop </a>
                                 <ul aria-expanded="false">
                                     <li><a href="{{ route('shop.page') }}">Shop Page</a></li>
-                                    <li><a href="single-product.html">Product Details</a></li>
                                     <li><a href="{{ route('shopping.card') }}">Shopping cart</a></li>
                                     <li><a href="{{ route('checkout.page') }}">Checkout</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                    <li><a href="{{ route('wish.list') }}">Wishlist</a></li>
                                 </ul>
                             </li>
                             <li class="sidemenu-items">
                                 <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Pages </a>
                                 <ul aria-expanded="false">
                                   <li><a href="about.html">About Page</a></li>
-                                  <li><a href="single-product.html">Product Details</a></li>
                                   <li><a href="{{ route('shopping.card') }}">Shopping cart</a></li>
                                   <li><a href="{{ route('checkout.page') }}">Checkout</a></li>
-                                  <li><a href="wishlist.html">Wishlist</a></li>
+                                  <li><a href="{{ route('wish.list') }}">Wishlist</a></li>
                                   <li><a href="faq.html">FAQ</a></li>
                                 </ul>
                             </li>

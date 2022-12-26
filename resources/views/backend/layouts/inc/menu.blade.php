@@ -8,85 +8,81 @@
         </a>
       </li>
       <li>
-        <a href="#categories" data-href="">
-            <i class="fas fa-vector-square"></i>
-          <span class="label">Categories</span>
+        <a href="#categorie" data-href="#">
+            <i class="fas fa-vector-square"></i> <span class="label ms-2">Categories</span>
         </a>
-        <ul id="categories">
-          <li>
-            <a href="{{ route('category.index') }}">
-              <span class="label">Category List</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('category.create') }}">
-              <span class="label">Create New Category</span>
-            </a>
-          </li>
+        <ul id="categorie">
+            <li>
+                <a href="{{ route('category.index') }}">
+                    <span class="label">Category List</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('category.create') }}">
+                    <span class="label">Create New Category</span>
+                </a>
+            </li>
         </ul>
       </li>
       <li>
-        <a href="#testimonial" data-href="">
-            <i class="fas fa-comments"></i>
-          <span class="label">Testimonials</span>
+        <a href="#testimonial" data-href="#">
+            <i class="fas fa-comments"></i> <span class="label ms-2">Testimonials</span>
         </a>
         <ul id="testimonial">
-          <li>
-            <a href="{{ route('testimonial.index') }}">
-              <span class="label">Testimonial List</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('testimonial.create') }}">
-              <span class="label">Create New Testimonial</span>
-            </a>
-          </li>
+            <li>
+                <a href="{{ route('testimonial.index') }}">
+                    <span class="label">Testimonial List</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('testimonial.create') }}">
+                    <span class="label">Create New Testimonial</span>
+                </a>
+            </li>
         </ul>
       </li>
       <li>
-        <a href="#products" data-href="">
-            <i class="fab fa-product-hunt"></i>
-          <span class="label">Products</span>
+        <a href="#products" data-href="#">
+            <i class="fab fa-product-hunt"></i> <span class="label ms-2">Products</span>
         </a>
         <ul id="products">
-          <li>
-            <a href="{{ route('product.index') }}">
-              <span class="label">Product List</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('product.create') }}">
-              <span class="label">Create New Product</span>
-            </a>
-          </li>
+            <li>
+                <a href="{{ route('product.index') }}">
+                    <span class="label">Product List</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('product.create') }}">
+                    <span class="label">Create New Product</span>
+                </a>
+            </li>
         </ul>
       </li>
       <li>
-        <a href="#cupons" data-href="">
-          <i class="fas fa-percentage"></i>
-          <span class="label">Coupons</span>
+        <a href="#cupons" data-href="#">
+            <i class="fas fa-percentage"></i> <span class="label ms-2">Coupons</span>
         </a>
         <ul id="cupons">
           <li>
             <a href="{{ route('coupon.index') }}">
-              <span class="label">Product List</span>
+              <span class="label">Coupon List</span>
             </a>
           </li>
           <li>
             <a href="{{ route('coupon.create') }}">
-              <span class="label">Create New Product</span>
+              <span class="label">Create New Coupon</span>
             </a>
           </li>
         </ul>
       </li>
       <li>
-        <a href="#orders" data-href="Orders.html">
+        <a href="#orders" data-href="{{ route('order.list') }}">
           <i data-cs-icon="cart" class="icon" data-cs-size="18"></i>
           <span class="label">Orders</span>
         </a>
         <ul id="orders">
           <li>
-            <a href="Orders.List.html">
+            <a href="{{ route('order.list') }}">
               <span class="label">List</span>
             </a>
           </li>
@@ -98,13 +94,13 @@
         </ul>
       </li>
       <li>
-        <a href="#customers" data-href="Customers.html">
+        <a href="#customers" data-href="{{ route('customer.list') }}">
           <i data-cs-icon="user" class="icon" data-cs-size="18"></i>
           <span class="label">Customers</span>
         </a>
         <ul id="customers">
           <li>
-            <a href="Customers.List.html">
+            <a href="{{ route('customer.list') }}">
               <span class="label">List</span>
             </a>
           </li>
@@ -113,6 +109,68 @@
               <span class="label">Detail</span>
             </a>
           </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#blogs" data-href="#">
+            <i class="fas fa-blog"></i>
+          <span class="label">Blogs</span>
+        </a>
+        <ul id="blogs">
+            <li>
+                <a href="#post_category" data-href="#">
+                    <i data-cs-icon="user" class="icon" data-cs-size="18"></i>
+                    <span class="label">Post Category</span>
+                  </a>
+                <ul id="post_category">
+                    <li>
+                        <a href="{{ route('post_category.index') }}">
+                            <span class="label">List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="label">Create New</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#post_subcategory" data-href="#">
+                    <i data-cs-icon="user" class="icon" data-cs-size="18"></i>
+                    <span class="label">Post Subcategory</span>
+                  </a>
+                <ul id="post_subcategory">
+                    <li>
+                        <a href="">
+                            <span class="label">List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="label">Create New</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#post" data-href="#">
+                    <i data-cs-icon="user" class="icon" data-cs-size="18"></i>
+                    <span class="label">Blog Post</span>
+                  </a>
+                <ul id="post">
+                    <li>
+                        <a href="">
+                            <span class="label">List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="label">Create New Post</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
       </li>
       <li>

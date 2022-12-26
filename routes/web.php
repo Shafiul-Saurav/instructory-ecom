@@ -15,8 +15,13 @@ use App\Http\Controllers\Backend\TestimonialController;
 use App\Http\Controllers\Backend\ProductTrashController;
 use App\Http\Controllers\Backend\CategoryTrashController;
 use App\Http\Controllers\Backend\AdminDashboardController;
+use App\Http\Controllers\Backend\CustomerController as BackendCustomerController;
+use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\PostCategoryController;
 use App\Http\Controllers\Frontend\Auth\RegisterController;
 use App\Http\Controllers\Backend\TestimonialTrashController;
+use App\Http\Controllers\Frontend\CommentController;
+use App\Http\Controllers\PostCategoryTrashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +54,7 @@ Route::prefix('')->group(function() {
     Route::get('/shop', [HomeController::class, 'shopPage'])->name('shop.page');
     Route::get('single_product/{slug}', [HomeController::class, 'productDetails'])->name('single.product');
     Route::get('shopping_card', [CartController::class, 'shoppingCard'])->name('shopping.card');
+    Route::get('wish_list', [CartController::class, 'wishList'])->name('wish.list');
     Route::post('add_to_cart', [CartController::class, 'addToCard'])->name('add_to.cart');
     Route::get('remove_from_cart/{cart_id}', [CartController::class, 'removeFromCart'])->name('remove_from.cart');
 
@@ -137,5 +143,25 @@ Route::prefix('admin/')->group(function(){
         Route::delete('coupon/forcedelete/{id}', [CouponTrashcontroller::class, 'forceDelete'])
         ->name('coupon.forcedelete');
         Route::resource('coupon', CouponController::class);
+
+        Route::get('order/list', [OrderController::class, 'orderList'])->name('order.list');
+        Route::get('customer/list', [BackendCustomerController::class, 'customerList'])->name('customer.list');
+
+        /*
+        |--------------------------------------------------------
+        | Blog Route
+        |--------------------------------------------------------
+        */
+
+        //PostCategory Controller
+        Route::get('post_category/trash', [PostCategoryTrashController::class, 'trash'])
+        ->name('post_category.trash');
+        Route::get('post_category/{category_slug}/restore', [PostCategoryTrashController::class, 'restore'])
+        ->name('post_category.restore');
+        Route::delete('post_category/{category_slug}/forcedelete', [PostCategoryTrashController::class, 'forceDelete'])
+        ->name('post_category.forcedelete');
+        Route::resource('post_category', PostCategoryController::class);
+
+        //PostSubcategory Controller
     });
 });

@@ -29,7 +29,6 @@ class OrderStoreRequest extends FormRequest
             'phone' => [
                 'required',
                 'regex:/(^(\+8801|8801|01|008801))[1|3-9]{1}(\d){8}$/',
-                'unique:users,phone'
             ],
             'district_id' => 'required|numeric',
             'upazila_id' => 'required|numeric',
