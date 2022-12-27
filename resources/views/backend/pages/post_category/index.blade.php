@@ -48,7 +48,7 @@ Post-Category Index
                         @foreach ($postCategories as $postCategory)
                             <tr>
                                 <th scope="row">{{ $postCategories->firstItem()+$loop->index }}</th>
-                                <td>{{ $postCategory->created_at->format('d M Y') }}</td>
+                                <td>{{ $postCategory->updated_at->format('d M Y') }}</td>
                                 <td class="">
                                     <img src="{{ asset('uploads/pcategories') }}/{{ $postCategory->pcategory_image }}"
                                     class="img-fluid rounded-circle" alt="" style="width:60px; height:60px;">

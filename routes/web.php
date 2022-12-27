@@ -18,9 +18,12 @@ use App\Http\Controllers\Backend\AdminDashboardController;
 use App\Http\Controllers\Backend\CustomerController as BackendCustomerController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PostCategoryController;
+use App\Http\Controllers\Backend\PostController;
+use App\Http\Controllers\Backend\PostSubcategoryController;
+use App\Http\Controllers\Backend\PostSubcategoryTrashController;
+use App\Http\Controllers\Backend\PostTrashController;
 use App\Http\Controllers\Frontend\Auth\RegisterController;
 use App\Http\Controllers\Backend\TestimonialTrashController;
-use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\PostCategoryTrashController;
 
 /*
@@ -163,5 +166,24 @@ Route::prefix('admin/')->group(function(){
         Route::resource('post_category', PostCategoryController::class);
 
         //PostSubcategory Controller
+        Route::get('post_subcategory/trash', [PostSubcategoryTrashController::class, 'trash'])
+        ->name('post_subcategory.trash');
+        Route::get('post_subcategory/{subcategory_slug}/restore', [PostSubcategoryTrashController::class, 'restore'])
+        ->name('post_subcategory.restore');
+        Route::delete('post_subcategory/{subcategory_slug}/forcedelete', [PostSubcategoryTrashController::class, 'forceDelete'])
+        ->name('post_subcategory.forcedelete');
+        Route::resource('post_subcategory', PostSubcategoryController::class);
+
+        //Post Controller
+        /*AJAX Call */
+        Route::get('/postSubcategory/ajax/{pcategory_id}', [PostTrashController::class, 'loadPostSubcategoryAjax'])
+        ->name('postSubcategory.ajax');
+        Route::get('post/trash', [PostTrashController::class, 'trash'])
+        ->name('post.trash');
+        Route::get('post/{post_slug}/restore', [PostTrashController::class, 'restore'])
+        ->name('post.restore');
+        Route::delete('post/{post_slug}/forcedelete', [PostTrashController::class, 'forceDelete'])
+        ->name('post.forcedelete');
+        Route::resource('post', PostController::class);
     });
 });

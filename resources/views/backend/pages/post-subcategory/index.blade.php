@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-Post-Category Trash
+Post-Subcategory Index
 @endsection
 
 @push('admin_style')
@@ -16,12 +16,16 @@ Post-Category Trash
 
 @section('admin_content')
     <div class="row">
-        <h1>{{ __('Category List Table') }}</h1>
+        <h1>{{ __('Subcategory List Table') }}</h1>
         <div class="col-12">
-            <div class="d-flex">
-                <a href="{{ route('post_category.index') }}" class="btn btn-primary">
-                    <i class="fa-solid fa-backward"></i>
-                    Back to Categories
+            <div class="d-flex justify-content-between">
+                <a href="{{ route('post_subcategory.trash') }}" class="btn btn-info">
+                    <i class="fas fa-trash-restore"></i>
+                    Restore
+                </a>
+                <a href="{{ route('post_subcategory.create') }}" class="btn btn-primary">
+                    <i class="fa-solid fa-circle-plus"></i>
+                    Add New Subcategory
                 </a>
             </div>
         </div>
@@ -32,27 +36,29 @@ Post-Category Trash
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Last Modified</th>
-                            <th scope="col">Category Image</th>
                             <th scope="col">Category Name</th>
-                            <th scope="col">Category Slug</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Subcategory Name</th>
+                            <th scope="col">Subcategory Slug</th>
                             <th scope="col">Status</th>
                             <th scope="col">Options</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($postCategories as $postCategory)
+                        @foreach ($postSubcategories as $postSubcategory)
                             <tr>
-                                <th scope="row">{{ $postCategories->firstItem()+$loop->index }}</th>
-                                <td>{{ $postCategory->updated_at->format('d M Y') }}</td>
+                                <th scope="row">{{ $postSubcategories->firstItem()+$loop->index }}</th>
+                                <td>{{ $postSubcategory->updated_at->format('d M Y') }}</td>
+                                <td>{{ $postSubcategory->postCategory->category_name }}</td>
                                 <td class="">
-                                    <img src="{{ asset('uploads/pcategories') }}/{{ $postCategory->pcategory_image }}"
+                                    <img src="{{ asset('uploads/subcategories') }}/{{ $postSubcategory->subcategory_image }}"
                                     class="img-fluid rounded-circle" alt="" style="width:60px; height:60px;">
                                 </td>
-                                <td>{{ $postCategory->category_name }}</td>
-                                <td>{{ $postCategory->category_slug }}</td>
+                                <td>{{ $postSubcategory->subcategory_name }}</td>
+                                <td>{{ $postSubcategory->subcategory_slug }}</td>
                                 <td>
-                                    @if ($postCategory->is_active == 1)
+                                    @if ($postSubcategory->is_active == 1)
                                         <span class="badge bg-success">Active</span>
                                     @else
                                         <span class="badge bg-warning">Inactive</span>
@@ -64,12 +70,13 @@ Post-Category Trash
                                             Setting
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="{{ route('post_category.restore', ['category_slug' => $postCategory->category_slug]) }}"><i class="fa-regular fa-pen-to-square"></i> Restore</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('post_subcategory.edit',
+                                            $postSubcategory->subcategory_slug) }}"><i class="fa-regular fa-pen-to-square"></i> Edit</a></li>
                                             <li>
-                                                <form action="{{ route('post_category.forcedelete', $postCategory->category_slug) }}" method="post">
+                                                <form action="{{ route('post_subcategory.destroy', $postSubcategory->subcategory_slug) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="dropdown-item show_confirm"><i class="fa-solid fa-trash"></i> Force Delete</button>
+                                                    <button type="submit" class="dropdown-item show_confirm"><i class="fa-solid fa-trash"></i> Delete</button>
                                                 </form>
                                             </li>
                                         </ul>

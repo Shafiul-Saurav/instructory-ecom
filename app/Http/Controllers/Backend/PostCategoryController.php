@@ -20,7 +20,7 @@ class PostCategoryController extends Controller
     public function index()
     {
         $postCategories = PostCategory::latest('id')
-        ->select(['id', 'category_name', 'category_slug', 'pcategory_image', 'is_active', 'created_at'])
+        ->select(['id', 'category_name', 'category_slug', 'pcategory_image', 'is_active', 'updated_at'])
         ->paginate(20);
 
         return view('backend.pages.post_category.index', compact('postCategories'));

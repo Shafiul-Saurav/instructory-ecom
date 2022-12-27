@@ -142,7 +142,7 @@
                   </a>
                 <ul id="post_subcategory">
                     <li>
-                        <a href="">
+                        <a href="{{ route('post_subcategory.index') }}">
                             <span class="label">List</span>
                         </a>
                     </li>
@@ -160,7 +160,7 @@
                   </a>
                 <ul id="post">
                     <li>
-                        <a href="">
+                        <a href="{{ route('post.index') }}">
                             <span class="label">List</span>
                         </a>
                     </li>
