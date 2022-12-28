@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class Comment extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -17,18 +17,8 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function category()
+    public function post()
     {
-        return $this->belongsTo(PostCategory::class, 'pcategory_id', 'id');
-    }
-
-    public function subcategory()
-    {
-        return $this->belongsTo(PostSubcategory::class, 'subcategory_id', 'id');
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(Post::class, 'post_id', 'id');
     }
 }

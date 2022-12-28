@@ -10,11 +10,11 @@ use Brian2694\Toastr\Facades\Toastr;
 
 class PostTrashController extends Controller
 {
-    public function loadPostSubcategoryAjax($pcategory_id)
-    {
-        $postSubcategories = PostSubcategory::where('pcategory_id', $pcategory_id)->select('id', 'subcategory_name')->get();
-        return response()->json($postSubcategories, 200);
-    }
+    // public function loadPostSubcategoryAjax($pcategory_id)
+    // {
+    //     $postSubcategories = PostSubcategory::where('pcategory_id', $pcategory_id)->select('id', 'subcategory_name')->get();
+    //     return response()->json($postSubcategories, 200);
+    // }
 
     public function trash()
     {

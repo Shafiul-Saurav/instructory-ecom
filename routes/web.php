@@ -24,6 +24,7 @@ use App\Http\Controllers\Backend\PostSubcategoryTrashController;
 use App\Http\Controllers\Backend\PostTrashController;
 use App\Http\Controllers\Frontend\Auth\RegisterController;
 use App\Http\Controllers\Backend\TestimonialTrashController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostCategoryTrashController;
 
 /*
@@ -60,6 +61,8 @@ Route::prefix('')->group(function() {
     Route::get('wish_list', [CartController::class, 'wishList'])->name('wish.list');
     Route::post('add_to_cart', [CartController::class, 'addToCard'])->name('add_to.cart');
     Route::get('remove_from_cart/{cart_id}', [CartController::class, 'removeFromCart'])->name('remove_from.cart');
+    Route::get('blog', [HomeController::class, 'blogPage'])->name('blog.page');
+    Route::get('single_post/{post_slug}', [HomeController::class, 'postDetails'])->name('single.post');
 
     //Customer Auth Routes
     Route::get('/register', [RegisterController::class, 'registerPage'])->name('register.page');
@@ -89,6 +92,9 @@ Route::prefix('')->group(function() {
                 'order_details' => $order
             ]);
         });
+
+        //Customer Comment
+        Route::resource('post_comment', CommentController::class);
 
     });
 });
@@ -172,12 +178,11 @@ Route::prefix('admin/')->group(function(){
         ->name('post_subcategory.restore');
         Route::delete('post_subcategory/{subcategory_slug}/forcedelete', [PostSubcategoryTrashController::class, 'forceDelete'])
         ->name('post_subcategory.forcedelete');
+        /*AXIOS Call */
+        Route::get('get-postsubcategory/{id}', [PostSubcategoryController::class, 'getSubCategoryByCategoryId']);
         Route::resource('post_subcategory', PostSubcategoryController::class);
 
         //Post Controller
-        /*AJAX Call */
-        Route::get('/postSubcategory/ajax/{pcategory_id}', [PostTrashController::class, 'loadPostSubcategoryAjax'])
-        ->name('postSubcategory.ajax');
         Route::get('post/trash', [PostTrashController::class, 'trash'])
         ->name('post.trash');
         Route::get('post/{post_slug}/restore', [PostTrashController::class, 'restore'])

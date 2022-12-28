@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Post;
+use App\Models\Product;
 use App\Models\Category;
 use App\Models\Testimonial;
+use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -47,6 +49,32 @@ class HomeController extends Controller
         ->get();
 
         return view('frontend.pages.single_product', compact('product', 'related_products'));
+    }
+
+    public function blogPage()
+    {
+        $posts = Post::with('user')->where('is_approved', 1)->latest('id')->select(['id', 'pcategory_id', 'subcategory_id', 'user_id',
+        'post_name', 'post_slug', 'post_description','long_description', 'post_image', 'is_approved', 'is_active',
+        'admin_comment', 'created_at'])->paginate(6);
+
+        return view('frontend.pages.blog', compact('posts'));
+    }
+
+    public function postDetails($post_slug)
+    {
+        $post = Post::where('post_slug', $post_slug)->with('user', 'category', 'subcategory', 'comments')->first();
+
+        $postCategories = PostCategory::select(['id', 'category_name'])->get();
+
+        $recent_posts = Post::whereNot('post_slug', $post_slug)->where('is_approved', 1)->limit(5)->latest('id')
+        ->select(['id', 'pcategory_id', 'subcategory_id', 'user_id',
+        'post_name', 'post_slug', 'post_description','long_description', 'post_image', 'is_approved', 'is_active',
+        'admin_comment', 'created_at'])
+        ->get();
+
+        // return $post;
+
+        return view('frontend.pages.single_post', compact('post', 'postCategories', 'recent_posts'));
     }
 
 }

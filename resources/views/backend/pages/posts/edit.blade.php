@@ -91,6 +91,17 @@ Post Edit
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <label for="long_description" class="form-label">Long Description</label>
+                                <textarea name="long_description" id="" cols="30" rows="5" class="form-control">{{ $post->long_description }}</textarea>
+                                @error('long_description')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group mt-4">
                                 <label for="post_image" class="form-label">Category Image</label>

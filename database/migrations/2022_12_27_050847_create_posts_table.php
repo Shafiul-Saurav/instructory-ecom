@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('post_name');
             $table->string('post_slug');
             $table->longText('post_description');
+            $table->longText('long_description');
             $table->string('post_image')->default('default_post.jpg');
             $table->boolean('is_approved')->default(false);
             $table->boolean('is_active')->default(false);

@@ -152,4 +152,10 @@ class PostSubcategoryController extends Controller
             ]);
         }
     }
+
+    public function getSubCategoryByCategoryId($id)
+    {
+        $postSubcategories = PostSubcategory::select(['id', 'subcategory_name'])->where('pcategory_id', $id)->get();
+        return response()->json($postSubcategories);
+    }
 }

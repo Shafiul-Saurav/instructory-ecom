@@ -24,7 +24,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::with('user')->latest('id')->select(['id', 'pcategory_id', 'subcategory_id', 'user_id',
-        'post_name', 'post_slug', 'post_description', 'post_image', 'is_approved', 'is_active',
+        'post_name', 'post_slug', 'post_description','long_description', 'post_image', 'is_approved', 'is_active',
         'admin_comment', 'updated_at'])->paginate(20);
 
         return view('backend.pages.posts.index', compact('posts'));
@@ -38,8 +38,7 @@ class PostController extends Controller
     public function create()
     {
         $postCategories = PostCategory::select(['id', 'category_name'])->get();
-        $postSubcategories = PostSubcategory::select(['id', 'subcategory_name'])->get();
-        return view('backend.pages.posts.create', compact('postCategories', 'postSubcategories'));
+        return view('backend.pages.posts.create', compact('postCategories'));
     }
 
     /**
@@ -58,6 +57,7 @@ class PostController extends Controller
             'post_name' => $request->post_name,
             'post_slug' => Str::slug($request->post_name),
             'post_description' => $request->post_description,
+            'long_description' => $request->long_description,
         ]);
 
         $this->image_upload($request, $post->id);
@@ -110,6 +110,7 @@ class PostController extends Controller
             'post_name' => $request->post_name,
             'post_slug' => Str::slug($request->post_name),
             'post_description' => $request->post_description,
+            'long_description' => $request->long_description,
             'is_approved' => $request->filled('is_approved'),
             'is_active' => $request->filled('is_active'),
         ]);
@@ -156,7 +157,7 @@ class PostController extends Controller
             $uploaded_photo = $request->file('post_image');
             $new_photo_name = $post->id . '.' . $uploaded_photo->getClientOriginalExtension();
             $new_photo_location = $photo_location . $new_photo_name;
-            Image::make($uploaded_photo)->resize(100,100)->save(base_path($new_photo_location), 40);
+            Image::make($uploaded_photo)->resize(870,500)->save(base_path($new_photo_location), 40);
             //$user = User::find($post->id);
             $check = $post->update([
                 'post_image' => $new_photo_name,
