@@ -26,6 +26,7 @@ use App\Http\Controllers\Frontend\Auth\RegisterController;
 use App\Http\Controllers\Backend\TestimonialTrashController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostCategoryTrashController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,6 +73,8 @@ Route::prefix('')->group(function() {
 
     /*AJAX Call */
     Route::get('/upzilla/ajax/{district_id}', [CheckoutController::class, 'loadUpazillaAjax'])->name('loadupazila.ajax');
+    Route::get('get-districts/{division_id}', [ProfileController::class, 'getDistrict']);
+    Route::get('get-upazilas/{district_id}', [ProfileController::class, 'getUpazila']);
 
     Route::prefix('customer/')->middleware('auth', 'is_customer')->group(function(){
         Route::get('dashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
@@ -95,6 +98,9 @@ Route::prefix('')->group(function() {
 
         //Customer Comment
         Route::resource('post_comment', CommentController::class);
+
+        //Profile Info
+        Route::resource('profile', ProfileController::class);
 
     });
 });

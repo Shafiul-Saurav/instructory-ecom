@@ -39,14 +39,15 @@
                 </div>
                 <div class="comment-form-area">
                     <div class="comment-main">
-                        <h3 class="blog-title"><span>(03)</span>Comments:</h3>
+                        <h3 class="blog-title">Comments:</h3>
                         <ol class="comments">
                             <li class="comment even thread-even depth-1">
                                 @foreach ($post->comments as $comment)
                                 <div class="comment-wrap">
                                     <div class="comment-theme">
                                         <div class="comment-image">
-                                            <img src="assets/images/comment/1.png" alt="Jhon">
+                                            <img src="{{ asset('uploads/users') }}/{{ $comment->user->profile->user_image }}"
+                                class="img-fluid rounded-circle" alt="" style="width:80px; height:80px;">
                                         </div>
                                     </div>
                                     <div class="comment-main-area">

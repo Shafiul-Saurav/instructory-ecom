@@ -11,14 +11,24 @@
                 </div>
                 <div class="col-md-6 col-12">
                     <ul class="d-flex account_login-area">
+                        @php
+                            $profile = \App\Models\Profile::where('user_id', Auth::id())->first();
+                        @endphp
                         @auth()
                         <li>
+                            @if ($profile)
+                            <a href="javascript:void(0);"><img src="{{ asset('uploads/users') }}/{{ $profile->user_image }}"
+                                class="img-fluid rounded-circle mr-2" alt="" style="width:20px; height:20px;"> My Account <i class="fa fa-angle-down"></i></a>
+                            @else
                             <a href="javascript:void(0);"><i class="fa fa-user"></i> My Account <i class="fa fa-angle-down"></i></a>
+                            @endif
+
                             <ul class="dropdown_style">
 
+                                <li><a href="{{ route('profile.index') }}">profile Setting</a></li>
                                 <li><a href="{{ route('shopping.card') }}">Cart</a></li>
                                 <li><a href="{{ route('checkout.page') }}">Checkout</a></li>
-                                <li><a href="wishlist.html">wishlist</a></li>
+                                <li><a href="{{ route('wish.list') }}">wishlist</a></li>
                                 <li><a href="{{ route('customer.logout') }}">Logout</a></li>
                             </ul>
                         </li>
@@ -71,7 +81,6 @@
                                 <a href="javascript:void(0);">Blog <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown_style">
                                     <li><a href="{{ route('blog.page') }}">blog Page</a></li>
-                                    <li><a href="blog-details.html">blog Details</a></li>
                                 </ul>
                             </li>
                             <li><a href="contact.html">Contact</a></li>
@@ -205,7 +214,6 @@
                                 <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Blog</a>
                                 <ul aria-expanded="false">
                                     <li><a href="{{ route('blog.page') }}">Blog</a></li>
-                                    <li><a href="blog-details.html">Blog Details</a></li>
                                 </ul>
                             </li>
                             <li><a href="contact.html">Contact</a></li>
