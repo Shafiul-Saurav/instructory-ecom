@@ -21,19 +21,6 @@ Dashboard
      <!-- Stats Start -->
      <div class="row">
         <div class="col-12">
-            {{-- <div class="dropdown-as-select me-3" data-setActive="false" data-childSelector="span">
-              <a class="pe-0 pt-0 align-top lh-1 dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
-                <span class="small-title"></span>
-              </a>
-              <div class="dropdown-menu font-standard">
-                <div class="nav flex-column" role="tablist">
-                  <a class="active dropdown-item text-medium" href="#" aria-selected="true" role="tab">Today's</a>
-                  <a class="dropdown-item text-medium" href="#" aria-selected="false" role="tab">Weekly</a>
-                  <a class="dropdown-item text-medium" href="#" aria-selected="false" role="tab">Monthly</a>
-                  <a class="dropdown-item text-medium" href="#" aria-selected="false" role="tab">Yearly</a>
-                </div>
-              </div>
-            </div> --}}
             <h2 class="small-title">Analytics Report</h2>
 
           <div class="mb-5">
@@ -89,7 +76,7 @@ Dashboard
                       <i data-cs-icon="arrow-top-left" class="text-primary"></i>
                     </div>
                     <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">PRODUCTS</div>
-                    <div class="text-primary cta-4">{{ $total_product }}</div>
+                    <div class="text-primary cta-4">{{ $total_products }}</div>
                   </div>
                 </div>
               </div>
@@ -100,7 +87,7 @@ Dashboard
                       <i data-cs-icon="message" class="text-primary"></i>
                     </div>
                     <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">COMMENTS</div>
-                    <div class="text-primary cta-4">5</div>
+                    <div class="text-primary cta-4">{{ $total_comments }}</div>
                   </div>
                 </div>
               </div>

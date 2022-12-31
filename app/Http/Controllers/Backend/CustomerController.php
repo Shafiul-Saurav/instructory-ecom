@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class CustomerController extends Controller
 {
@@ -15,5 +16,15 @@ class CustomerController extends Controller
 
         return view('backend.pages.customer.index', compact('customers'));
 
+    }
+
+    public function customerDelete($id)
+    {
+        // dd($id);
+        $customer = User::where('id', $id)->first();
+        $customer->delete();
+
+        Toastr::success('Customer Has Been Deleted Successfully!');
+        return redirect()->back();
     }
 }

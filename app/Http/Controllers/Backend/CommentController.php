@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
-use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\CommentStoreRequest;
+use App\Http\Requests\CommentUpdateRequest;
 
 class CommentController extends Controller
 {
@@ -18,7 +17,10 @@ class CommentController extends Controller
      */
     public function index()
     {
-
+        $comments = Comment::with('user', 'post')->latest('id')
+        ->select(['id', 'user_id', 'post_id', 'commentor_comment', 'is_active', 'is_approved', 'created_at'])
+        ->paginate(20);
+        return view('backend.pages.comment.index', compact('comments'));
     }
 
     /**
@@ -37,17 +39,9 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CommentStoreRequest $request)
+    public function store(Request $request)
     {
-        // // dd($request->all());
-        // $comment = Comment::create([
-        //     'user_id' => Auth::user()->id,
-        //     'post_id' => $request->post_slug,
-        //     'commentor_comment' => $request->commentor_comment
-        // ]);
-
-        // Toastr::success('Comment Published Successfully!');
-        // return redirect()->back();
+        //
     }
 
     /**
@@ -69,7 +63,8 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comment = Comment::where('id', $id)->first();
+        return view('backend.pages.comment.index', compact('comment'));
     }
 
     /**
@@ -79,9 +74,17 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CommentUpdateRequest $request, $id)
     {
-        //
+        // dd($request->all());
+        $comment = Comment::where('id', $id)->first();
+        $comment->update([
+            'is_approved' => $request->filled('is_approved'),
+        ]);
+
+        Toastr::success('Comment Updated Successfully');
+        return redirect()->back();
+
     }
 
     /**
@@ -92,6 +95,11 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // dd($id);
+        $comment = Comment::where('id', $id)->first();
+        $comment->delete();
+
+        Toastr::success('Comment Deleted Successfully!');
+        return redirect()->back();
     }
 }

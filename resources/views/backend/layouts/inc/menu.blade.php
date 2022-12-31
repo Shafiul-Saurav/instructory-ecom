@@ -60,7 +60,7 @@
       </li>
       <li>
         <a href="#cupons" data-href="#">
-            <i class="fas fa-percentage"></i> <span class="label ms-2">Coupons</span>
+            <i class="fas fa-tag"></i> <span class="label ms-2">Coupons</span>
         </a>
         <ul id="cupons">
           <li>
@@ -106,6 +106,23 @@
           </li>
           <li>
             <a href="Customers.Detail.html">
+              <span class="label">Detail</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#postcomments" data-href="{{ route('post_comment.index') }}">
+            <i class="fas fa-comment"></i> <span class="label ms-2">Comments</span>
+        </a>
+        <ul id="postcomments">
+          <li>
+            <a href="{{ route('post_comment.index') }}">
+              <span class="label">List</span>
+            </a>
+          </li>
+          <li>
+            <a href="">
               <span class="label">Detail</span>
             </a>
           </li>

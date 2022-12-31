@@ -2,31 +2,33 @@
 
 use App\Models\Order;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PostCommentController;
+use App\Http\Controllers\Backend\PostController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\CommentController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\PostTrashController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CustomerController;
+use App\Http\Controllers\PostCategoryTrashController;
 use App\Http\Controllers\Backend\CouponTrashcontroller;
 use App\Http\Controllers\Backend\TestimonialController;
+use App\Http\Controllers\Backend\CommentTrashController;
+use App\Http\Controllers\Backend\PostCategoryController;
 use App\Http\Controllers\Backend\ProductTrashController;
 use App\Http\Controllers\Backend\CategoryTrashController;
 use App\Http\Controllers\Backend\AdminDashboardController;
-use App\Http\Controllers\Backend\CustomerController as BackendCustomerController;
-use App\Http\Controllers\Backend\OrderController;
-use App\Http\Controllers\Backend\PostCategoryController;
-use App\Http\Controllers\Backend\PostController;
-use App\Http\Controllers\Backend\PostSubcategoryController;
-use App\Http\Controllers\Backend\PostSubcategoryTrashController;
-use App\Http\Controllers\Backend\PostTrashController;
 use App\Http\Controllers\Frontend\Auth\RegisterController;
+use App\Http\Controllers\Backend\PostSubcategoryController;
 use App\Http\Controllers\Backend\TestimonialTrashController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\PostCategoryTrashController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\PostSubcategoryTrashController;
+use App\Http\Controllers\Backend\CustomerController as BackendCustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,14 +40,6 @@ use App\Http\Controllers\ProfileController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::get('/', function () {
-//     return view('frontend.pages.home');
-// });
 
 
 /*
@@ -97,7 +91,8 @@ Route::prefix('')->group(function() {
         });
 
         //Customer Comment
-        Route::resource('post_comment', CommentController::class);
+        Route::get('comment', [PostCommentController::class, 'index'])->name('comment.index');
+        Route::post('comment', [PostCommentController::class, 'store'])->name('comment.store');
 
         //Profile Info
         Route::resource('profile', ProfileController::class);
@@ -161,6 +156,7 @@ Route::prefix('admin/')->group(function(){
 
         Route::get('order/list', [OrderController::class, 'orderList'])->name('order.list');
         Route::get('customer/list', [BackendCustomerController::class, 'customerList'])->name('customer.list');
+        Route::delete('customer/{id}/delete', [BackendCustomerController::class, 'customerDelete'])->name('customer.delete');
 
         /*
         |--------------------------------------------------------
@@ -196,5 +192,14 @@ Route::prefix('admin/')->group(function(){
         Route::delete('post/{post_slug}/forcedelete', [PostTrashController::class, 'forceDelete'])
         ->name('post.forcedelete');
         Route::resource('post', PostController::class);
+
+        //Comment Controller
+        Route::get('post_comment/trash', [CommentTrashController::class, 'trash'])
+        ->name('post_comment.trash');
+        Route::get('post_comment/{id}/restore', [CommentTrashController::class, 'restore'])
+        ->name('post_comment.restore');
+        Route::delete('post_comment/{id}/forcedelete', [CommentTrashController::class, 'forceDelete'])
+        ->name('post_comment.forcedelete');
+        Route::resource('post_comment', CommentController::class);
     });
 });

@@ -101,7 +101,7 @@
                             <th>Profile Image</th>
                             <td>
                                 <img src="{{ asset('uploads/users') }}/{{ $profile->user_image }}"
-                                class="img-fluid" alt="">
+                                class="img-fluid" alt="" style="width:100px; height:100px;">
                             </td>
                         </tr>
                         <tr>
@@ -224,6 +224,13 @@
                 <table class="table table-striped table-bordered table-hover">
                     <tbody>
                         <tr><th colspan="2"><h3>Your Information</h3></th></tr>
+                        <tr>
+                            <th>Profile Image</th>
+                            <td>
+                                <img src="{{ asset('uploads/users') }}/default_user.jpg"
+                                class="img-fluid" alt="" style="width:100px; height:100px;">
+                            </td>
+                        </tr>
                         <tr>
                             <th>Your Name</th>
                             <td>{{ Auth::user()->name }}</td>

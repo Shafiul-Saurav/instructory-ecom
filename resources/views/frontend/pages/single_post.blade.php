@@ -37,6 +37,8 @@
                         </div>
                     </div>
                 </div>
+                @php
+                @endphp
                 <div class="comment-form-area">
                     <div class="comment-main">
                         <h3 class="blog-title">Comments:</h3>
@@ -45,10 +47,17 @@
                                 @foreach ($post->comments as $comment)
                                 <div class="comment-wrap">
                                     <div class="comment-theme">
+                                        @if ($comment->user->profile)
                                         <div class="comment-image">
                                             <img src="{{ asset('uploads/users') }}/{{ $comment->user->profile->user_image }}"
-                                class="img-fluid rounded-circle" alt="" style="width:80px; height:80px;">
+                                            class="img-fluid rounded-circle" alt="" style="width:80px; height:80px;">
                                         </div>
+                                        @else
+                                        <div class="comment-image">
+                                            <img src="{{ asset('uploads/users') }}/default_user.jpg"
+                                            class="img-fluid rounded-circle" alt="" style="width:80px; height:80px;">
+                                        </div>
+                                        @endif
                                     </div>
                                     <div class="comment-main-area">
                                         <div class="comment-wrapper">
@@ -68,7 +77,7 @@
                     </div>
                     <div id="respond" class="sewl-comment-form comment-respond form-style">
                         <h3 id="reply-title" class="blog-title">Leave a <span>comment</span></h3>
-                        <form action="{{ route('post_comment.store') }}" method="post" id="commentform" class="comment-form">
+                        <form action="{{ route('comment.store') }}" method="post" id="commentform" class="comment-form">
                             @csrf
                             <div class="row">
                                 <div class="col-12">

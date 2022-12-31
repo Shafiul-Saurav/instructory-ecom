@@ -62,7 +62,8 @@ class HomeController extends Controller
 
     public function postDetails($post_slug)
     {
-        $post = Post::where('post_slug', $post_slug)->with('user', 'category', 'subcategory', 'comments')->first();
+        $post = Post::where('post_slug', $post_slug)
+        ->with(['user', 'category', 'subcategory', 'comments'])->first();
 
         $postCategories = PostCategory::select(['id', 'category_name'])->get();
 

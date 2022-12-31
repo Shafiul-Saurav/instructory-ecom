@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class AdminDashboardController extends Controller
         $total_order_count = Order::count();
         $total_categories = Category::count();
         $total_customers = User::where('role_id', 2)->count();
-        $total_product = Product::count();
+        $total_products = Product::count();
+        $total_comments = Comment::count();
 
         $orders = Order::with('billing', 'orderdetails')->latest('id')->paginate(15);
 
@@ -36,7 +38,8 @@ class AdminDashboardController extends Controller
             'total_order_count',
             'total_categories',
             'total_customers',
-            'total_product',
+            'total_products',
+            'total_comments',
             'orders',
             'order_yearwise'
         ));

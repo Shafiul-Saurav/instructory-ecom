@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-Customer Index
+Comment Trash
 @endsection
 
 @push('admin_style')
@@ -16,18 +16,14 @@ Customer Index
 
 @section('admin_content')
     <div class="row">
-        <h1>{{ __('Customer List Table') }}</h1>
+        <h1>{{ __('Comment List Table') }}</h1>
         <div class="col-12">
-            {{-- <div class="d-flex justify-content-between">
-                <a href="{{ route('category.trash') }}" class="btn btn-info">
+            <div>
+                <a href="{{ route('post_comment.index') }}" class="btn btn-info">
                     <i class="fas fa-trash-restore"></i>
                     Restore
                 </a>
-                <a href="{{ route('category.create') }}" class="btn btn-primary">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    Add New Category
-                </a>
-            </div> --}}
+            </div>
         </div>
         <div class="col-12">
             <div class="table-responsive my-4">
@@ -35,31 +31,53 @@ Customer Index
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Date Added</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">Published On</th>
+                            <th scope="col">Profile Image</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Post</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Approval</th>
                             <th scope="col">Options</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($customers as $customer)
+                        @foreach ($comments as $comment)
                             <tr>
-                                <th scope="row">{{ $customers->firstItem()+$loop->index }}</th>
-                                <td>{{ $customer->created_at->format('d M Y') }}</td>
-                                <td>{{ $customer->name }}</td>
-                                <td>{{ $customer->phone }}</td>
-                                <td>{{ $customer->email }}</td>
+                                <th scope="row">{{ $comments->firstItem()+$loop->index }}</th>
+                                <td>{{ $comment->created_at->format('d M Y') }}</td>
+                                @if ($comment->user->profile)
+                                <td>
+                                    <img src="{{ asset('uploads/users') }}/{{ $comment->user->profile->user_image }}"
+                                    class="img-fluid rounded-circle" alt="" style="width:30px; height:30px;">
+                                </td>
+                                @else
+                                <td>
+                                    <img src="{{ asset('uploads/users') }}/default_user.jpg"
+                                    class="img-fluid rounded-circle" alt="" style="width:30px; height:30px;">
+                                </td>
+                                @endif
+
+                                <td>{{ $comment->user->name }}</td>
+                                <td>{{ $comment->post->post_name }}</td>
+                                <td>{{ $comment->commentor_comment }}</td>
+                                <td>
+                                    @if ($comment->is_approved == 1)
+                                        <span class="badge bg-success">Approved</span>
+                                    @else
+                                        <span class="badge bg-warning">Disapproved</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                             Setting
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href=""><i class="fa-regular fa-pen-to-square"></i> Edit</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('post_comment.restore', ['id' => $comment->id]) }}"><i class="fas fa-trash-restore"></i> Restore</a></li>
+                                            <hr>
                                             <li>
-                                                <form action="{{ route('customer.delete', $customer->id) }}" method="post">
+                                                <form action="{{ route('post_comment.forcedelete', ['id' => $comment->id]) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item show_confirm"><i class="fa-solid fa-trash"></i> Delete</button>

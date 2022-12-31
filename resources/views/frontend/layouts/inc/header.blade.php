@@ -20,9 +20,8 @@
                             <a href="javascript:void(0);"><img src="{{ asset('uploads/users') }}/{{ $profile->user_image }}"
                                 class="img-fluid rounded-circle mr-2" alt="" style="width:20px; height:20px;"> My Account <i class="fa fa-angle-down"></i></a>
                             @else
-                            <a href="javascript:void(0);"><i class="fa fa-user"></i> My Account <i class="fa fa-angle-down"></i></a>
+                            <a href="javascript:void(0);"><img src="{{ asset('uploads/users') }}/default_user.jpg" class="img-fluid rounded-circle mr-2" alt="" style="width:20px; height:20px;"> My Account <i class="fa fa-angle-down"></i></a>
                             @endif
-
                             <ul class="dropdown_style">
 
                                 <li><a href="{{ route('profile.index') }}">profile Setting</a></li>
@@ -92,7 +91,8 @@
                         <li class="search-tigger"><a href="javascript:void(0);"><i class="flaticon-search"></i></a></li>
                         <li>
                             @php
-                                $numberOfCartProduct = \Gloudemans\Shoppingcart\Facades\Cart::count();
+                                $numberOfCartProduct = \Gloudemans\Shoppingcart\Facades\Cart::content()->count();
+                                // dd($numberOfCartProduct);
                             @endphp
                             @if ($numberOfCartProduct >= 1)
                             <a href="javascript:void(0);"><i class="flaticon-like"></i>
