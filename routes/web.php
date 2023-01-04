@@ -41,7 +41,6 @@ use App\Http\Controllers\Backend\CustomerController as BackendCustomerController
 |
 */
 
-
 /*
 |--------------------------------------------------------------------------
 | Frontend Routes
