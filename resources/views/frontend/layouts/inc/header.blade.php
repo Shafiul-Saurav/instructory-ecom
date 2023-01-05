@@ -82,7 +82,7 @@
                                     <li><a href="{{ route('blog.page') }}">blog Page</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="{{ route('message.create') }}">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -216,7 +216,7 @@
                                     <li><a href="{{ route('blog.page') }}">Blog</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="{{ route('message.create') }}">Contact</a></li>
                         </ul>
                     </div>
                 </div>

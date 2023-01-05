@@ -127,8 +127,8 @@
             </a>
           </li>
         </ul>
-      </li>
-      <li>
+    </li>
+    <li>
         <a href="#blogs" data-href="#">
             <i class="fas fa-blog"></i>
           <span class="label">Blogs</span>
@@ -189,7 +189,24 @@
                 </ul>
             </li>
         </ul>
-      </li>
+    </li>
+    <li>
+        <a href="#messages" data-href="#">
+            <i class="fas fa-envelope"></i> <span class="label ms-2">Message</span>
+        </a>
+        <ul id="messages">
+            <li>
+                <a href="{{ route('message.index') }}">
+                    <span class="label">Message List</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="label">Comming Soon</span>
+                </a>
+            </li>
+        </ul>
+    </li>
       <li>
         <a href="#storefront" data-href="Storefront.html">
           <i data-cs-icon="screen" class="icon" data-cs-size="18"></i>

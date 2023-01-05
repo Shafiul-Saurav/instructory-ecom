@@ -29,6 +29,8 @@ use App\Http\Controllers\Backend\PostSubcategoryController;
 use App\Http\Controllers\Backend\TestimonialTrashController;
 use App\Http\Controllers\Backend\PostSubcategoryTrashController;
 use App\Http\Controllers\Backend\CustomerController as BackendCustomerController;
+use App\Http\Controllers\backend\MessageController as BackendMessageController;
+use App\Http\Controllers\Frontend\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +97,10 @@ Route::prefix('')->group(function() {
 
         //Profile Info
         Route::resource('profile', ProfileController::class);
+
+        //Message
+        Route::get('message', [MessageController::class, 'create'])->name('message.create');
+        Route::post('message', [MessageController::class, 'store'])->name('message.store');
 
     });
 });
@@ -200,5 +206,14 @@ Route::prefix('admin/')->group(function(){
         Route::delete('post_comment/{id}/forcedelete', [CommentTrashController::class, 'forceDelete'])
         ->name('post_comment.forcedelete');
         Route::resource('post_comment', CommentController::class);
+
+        //Message Controller
+        Route::get('message/index', [BackendMessageController::class, 'index'])->name('message.index');
+        Route::delete('message/{id}/destroy', [BackendMessageController::class, 'delete'])->name('message.delete');
     });
 });
+
+
+// Route::get('contact', function() {
+//     return view('frontend.pages.contact');
+// });
