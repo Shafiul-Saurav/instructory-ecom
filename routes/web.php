@@ -30,6 +30,7 @@ use App\Http\Controllers\Backend\TestimonialTrashController;
 use App\Http\Controllers\Backend\PostSubcategoryTrashController;
 use App\Http\Controllers\Backend\CustomerController as BackendCustomerController;
 use App\Http\Controllers\backend\MessageController as BackendMessageController;
+use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\MessageController;
 
 /*
@@ -51,6 +52,7 @@ use App\Http\Controllers\Frontend\MessageController;
 
 Route::prefix('')->group(function() {
     Route::get('/', [HomeController::class, 'home'])->name('home');
+    Route::get('about', [AboutController::class, 'about'])->name('about');
     Route::get('/shop', [HomeController::class, 'shopPage'])->name('shop.page');
     Route::get('single_product/{slug}', [HomeController::class, 'productDetails'])->name('single.product');
     Route::get('shopping_card', [CartController::class, 'shoppingCard'])->name('shopping.card');
@@ -212,8 +214,3 @@ Route::prefix('admin/')->group(function(){
         Route::delete('message/{id}/destroy', [BackendMessageController::class, 'delete'])->name('message.delete');
     });
 });
-
-
-// Route::get('contact', function() {
-//     return view('frontend.pages.contact');
-// });

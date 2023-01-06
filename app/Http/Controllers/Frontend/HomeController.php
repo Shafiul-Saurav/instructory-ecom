@@ -9,6 +9,7 @@ use App\Models\Testimonial;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\OrderDetail;
 
 class HomeController extends Controller
 {
@@ -24,9 +25,11 @@ class HomeController extends Controller
         ->select(['id', 'category_id', 'name', 'slug', 'product_price', 'product_stock',
         'product_image', 'product_rating'])->paginate(8);
 
+        $bestSellers = OrderDetail::with(['product'])->latest('id')->limit(4)->select('id', 'product_id')->get();
+
         // return $products;
 
-        return view('frontend.pages.home', compact('testimonials', 'categories', 'products'));
+        return view('frontend.pages.home', compact('testimonials', 'categories', 'products', 'bestSellers'));
     }
 
     public function shopPage()

@@ -22,8 +22,8 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
+    // public function comments()
+    // {
+    //     return $this->hasMany(Comment::class);
+    // }
 }

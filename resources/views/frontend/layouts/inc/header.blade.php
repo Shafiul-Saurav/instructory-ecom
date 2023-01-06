@@ -56,7 +56,7 @@
                     <nav class="mainmenu">
                         <ul class="d-flex">
                             <li class="active"><a href="{{ route('home') }}">Home</a></li>
-                            <li><a href="about.html">About</a></li>
+                            <li><a href="{{ route('about') }}">About</a></li>
                             <li>
                                 <a href="javascript:void(0);">Shop <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown_style">
@@ -69,7 +69,7 @@
                             <li>
                                 <a href="javascript:void(0);">Pages <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown_style">
-                                    <li><a href="about.html">About Page</a></li>
+                                    <li><a href="{{ route('about') }}">About Page</a></li>
                                     <li><a href="{{ route('shopping.card') }}">Shopping cart</a></li>
                                     <li><a href="{{ route('checkout.page') }}">Checkout</a></li>
                                     <li><a href="{{ route('wish.list') }}">Wishlist</a></li>
@@ -132,7 +132,7 @@
                         </li>
                         <li>
                             @php
-                                $numberOfCartProduct = \Gloudemans\Shoppingcart\Facades\Cart::count();
+                                $numberOfCartProduct = \Gloudemans\Shoppingcart\Facades\Cart::content()->count();
                             @endphp
                             @if ($numberOfCartProduct >= 1)
                             <a href="javascript:void(0);"><i class="flaticon-shop"></i>
@@ -190,7 +190,7 @@
                     <div class="col-12 d-block d-lg-none">
                         <ul class="metismenu">
                             <li><a href="{{ route('home') }}">Home</a></li>
-                            <li><a href="about.html">About</a></li>
+                            <li><a href="{{ route('about') }}">About</a></li>
                             <li class="sidemenu-items">
                                 <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Shop </a>
                                 <ul aria-expanded="false">
@@ -203,7 +203,7 @@
                             <li class="sidemenu-items">
                                 <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Pages </a>
                                 <ul aria-expanded="false">
-                                  <li><a href="about.html">About Page</a></li>
+                                  <li><a href="{{ route('about') }}">About Page</a></li>
                                   <li><a href="{{ route('shopping.card') }}">Shopping cart</a></li>
                                   <li><a href="{{ route('checkout.page') }}">Checkout</a></li>
                                   <li><a href="{{ route('wish.list') }}">Wishlist</a></li>
