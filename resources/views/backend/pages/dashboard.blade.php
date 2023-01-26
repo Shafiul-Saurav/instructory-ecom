@@ -98,18 +98,6 @@ Dashboard
       <!-- Stats End -->
       <div class="row">
         <h1>{{ __('Order List Table') }}</h1>
-        {{-- <div class="col-12">
-            <div class="d-flex justify-content-between">
-                <a href="{{ route('category.trash') }}" class="btn btn-info">
-                    <i class="fas fa-trash-restore"></i>
-                    Restore
-                </a>
-                <a href="{{ route('category.create') }}" class="btn btn-primary">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    Add New Category
-                </a>
-            </div>
-        </div> --}}
         <div class="col-8">
             <div class="table-responsive my-4">
                 <table id="dataTable" class="table table-bordered table-striped dataTable_length">
@@ -259,7 +247,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['2020', '2021', '2022'],
+            labels: ['2020', '2021', '2022', '2023'],
             datasets: [{
                 label: '# of Orders',
                 data: <?php echo json_encode($order_yearwise); ?>,
@@ -267,8 +255,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
                     // 'rgba(75, 192, 192, 0.2)',
-                    // 'rgba(153, 102, 255, 0.2)',
                     // 'rgba(255, 159, 64, 0.2)',
                     // 'rgba(55, 159, 64, 0.2)'
                 ],
@@ -276,8 +264,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
+                    'rgba(153, 102, 255, 1)',
                     // 'rgba(75, 192, 192, 1)',
-                    // 'rgba(153, 102, 255, 1)',
                     // 'rgba(255, 159, 64, 1)',
                     // 'rgba(55, 159, 64, 1)'
                 ],

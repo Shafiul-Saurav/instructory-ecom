@@ -156,7 +156,7 @@ Product Edit
                         </div>
                         <div class="col-12">
                             <div class="form-group mt-4">
-                                <label for="product_multiple_image" class="form-label">Product Image</label>
+                                <label for="product_multiple_image" class="form-label">Product Multiple Image</label>
                                 <input type="file" name="product_multiple_image[]" class="form-control" multiple>
                                 @error('product_multiple_image')
                                     <span class="invalid-feedback" role="alert">

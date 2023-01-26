@@ -26,8 +26,9 @@ class AdminDashboardController extends Controller
         $order_on_2020 = Order::whereBetween('created_at', ['2020-01-01', '2020-12-31'])->count();
         $order_on_2021 = Order::whereBetween('created_at', ['2021-01-01', '2021-12-31'])->count();
         $order_on_2022 = Order::whereBetween('created_at', ['2022-01-01', '2022-12-31'])->count();
+        $order_on_2023 = Order::whereBetween('created_at', ['2023-01-01', '2023-12-31'])->count();
 
-        $order_yearwise = array($order_on_2020, $order_on_2021, $order_on_2022);
+        $order_yearwise = array($order_on_2020, $order_on_2021, $order_on_2022, $order_on_2023);
 
 
         // return $order_weekwise;

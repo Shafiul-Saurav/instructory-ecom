@@ -64,8 +64,6 @@ class ProfileController extends Controller
         $this->image_upload($request, $profile->id);
         }
 
-
-
         Toastr::success('Profile Updated Successfully!');
         return redirect()->back();
     }

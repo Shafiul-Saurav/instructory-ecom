@@ -45,7 +45,7 @@ class HomeController extends Controller
 
     public function productDetails($slug)
     {
-        $product = Product::where('slug', $slug)->with('category', 'productImages')->first();
+        $product = Product::where('slug', $slug)->with(['category', 'productImages'])->first();
 
         $related_products = Product::whereNot('slug', $slug)->limit(4)
         ->select(['id', 'name', 'slug', 'product_price', 'product_image', 'product_rating'])

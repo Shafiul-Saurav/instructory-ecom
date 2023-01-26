@@ -26,7 +26,7 @@
                                 <label for="user_image" class="form-label">Profile Image <span class="text-danger">*</span></label>
                                 <input type="file" name="user_image" class="form-control dropify @error('user_image')
                                     is-invalid
-                                @enderror" placeholder="Enter Category Title"
+                                @enderror"
                                 data-default-file="{{ asset('uploads/users') }}/{{ $profile->user_image }}">
                                 @error('user_image')
                                     <span class="invalid-feedback" role="alert">
@@ -48,6 +48,7 @@
                                 </select>
                             </div>
                         </div>
+                        {{-- For District --}}
                         <div class="col-md-4">
                             <div class="form-group mt-3">
                                 <label for="district_id" class="form-label">District <span class="text-danger">*</span></label>
@@ -56,6 +57,7 @@
                                 </select>
                             </div>
                         </div>
+                        {{-- For Thana/Upazila --}}
                         <div class="col-md-4">
                             <div class="form-group mt-3">
                                 <label for="upazila_id" class="form-label">Thana <span class="text-danger">*</span></label>
@@ -273,6 +275,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     $('.dropify').dropify();
 </script>
 <script>
+    // To Get District Data
     const getDistricts = (division_id, selected = null) => {
         axios.get(`${window.location.origin}/get-districts/${division_id}`).then(res=>{
             let districts = res.data
@@ -292,6 +295,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         getDistricts($(this).val())
     })
 
+    // To Get Thana/Upazila Data
     const getUpazilas = (district_id, selected = null) => {
         axios.get(`${window.location.origin}/get-upazilas/${district_id}`).then(res=>{
             let upazilas = res.data
