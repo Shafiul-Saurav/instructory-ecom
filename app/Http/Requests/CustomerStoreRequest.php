@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Password;
 
 class CustomerStoreRequest extends FormRequest
 {
@@ -32,7 +32,7 @@ class CustomerStoreRequest extends FormRequest
                 'unique:users,phone'
             ],
             'email' => 'bail|required|string|email|max:255|unique:users',
-            // 'password' => ['bail', 'required', 'string', 'confirmed', Password::min(4)->mixedCase()],
+            'password' => ['bail', 'required', 'string', 'confirmed', Password::min(4)->mixedCase()],
             'password' => 'required|string|confirmed|min:4|',
 
         ];
